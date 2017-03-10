@@ -1,143 +1,110 @@
 #include <stdio.h>
 
-
-int count_bits()
+enum animal
 {
-	unsigned num = ~0U;
-	int count = 0;
-	while (num)
+	Dog,
+	Cat,
+	Monkey,
+	Invalid
+};
+
+void DogYell(void)
+{
+	puts("汪汪");
+}
+
+void CatYell(void)
+{
+	puts("喵喵");
+}
+
+void MonkeyYell(void)
+{
+	puts("噢噢");
+}
+
+
+enum animal select(void)
+{
+	int t;
+	do
 	{
-		
-		if (num & 1U)
+		scanf_s("%d",&t);
+	} while (t>Invalid||t<Dog);
+	return t;
+};
+
+
+//阶乘递归
+int digui_func(int n)
+{
+	if (n == 1)
+	{
+		return 1;
+	}
+	else
+	{
+		return n*digui_func(n - 1);
+	}
+}
+
+//阶乘无递归
+int func(int n)
+{
+	int temp = 1;
+	for (int i = 1; i <= n; i++)
+	{
+		temp *= i;
+	}
+	return temp;
+}
+
+void getcharfunc(void)
+{
+	int num[10] = { 0 };
+	int charr;
+	float f;
+	scanf_s("%f", &f);
+	while (1)
+	{
+		charr = getchar();
+	
+		if (charr==EOF)
 		{
-			num >>= 1;
-			count++;
+			break;
+		}
+		switch (charr)
+		{
+		case '0':num[0]++;
+			break;
+		case '1':num[1]++;
+			break;
+		case '2':num[2]++;
+			break;
+		case '3':num[3]++;
+			break;
+		case '4':num[4]++;
+			break;
+		case '5':num[5]++;
+			break;
+		case '6':num[6]++;
+			break;
+
+		case '7':num[7]++;
+			break;
+		default:
+			break;
 		}
 	}
-	return count;
-}
-
-void print_bits(unsigned num)
-{
-	int bitcount = count_bits();
-	for (int i = bitcount-1; i >= 0; i--)
+	puts("数字字符出现的次数");
+	for (int i = 0; i < 10; i++)
 	{
-		putchar((num >> i) & 1U ? '1' : '0');
+		printf("'%d':%d\n",i,num[i]);
 	}
-}
-
-
-
-unsigned rrotate(unsigned x,int n)
-{
-	return x >> n;
-}
-
-unsigned lrotate(unsigned x, int n)
-{
-	return x << n;
-}
-
-//或
-unsigned set(unsigned x, int pos)
-{
-	if (pos<1)
-	{
-		puts("wrong");
-		scanf_s("%d",pos);
-	}
-	unsigned p = 1U;
-	return x|(pos==1?p: p <<(pos-1));
-}
-
-//与
-unsigned reset(unsigned x, int pos)
-{
-	unsigned p = 1U;
-	return x&(~p << (pos - 1));
-}
-
-//异或
-unsigned inverse(unsigned x, int pos) 
-{
-	if (pos<1)
-	{
-		puts("wrong");
-		scanf_s("%d", pos);
-	}
-	unsigned p = 1U;
-	return x ^ (pos == 1 ? p : p << (pos - 1));
-};
-
-//或
-unsigned set_n(unsigned x,int pos,int n) 
-{
-	unsigned p = 1U;
-	for (int i = 1; i < n; i++)
-	{
-		p <<= 1;
-		p= p | 1U;		
-	}
-	return x|(p <<(pos - 1));
-};
-
-//与
-unsigned reset_n(unsigned x, int pos, int n)
-{
-	unsigned p = 1U;
-	for (int i = 1; i < n; i++)
-	{
-		p <<= 1;
-		p = p & 1U;
-	}
-	return  x&(~p << (pos - 1));
-};
-
-unsigned inverse_n(unsigned x, int pos, int n)
-{
-	unsigned p = 1U;
-	for (int i = 1; i < n; i++)
-	{
-		p <<= 1;
-		p = p | 1U;
-	}
-	return x ^ (p << (pos - 1));
 }
 
 int main(void)
 {
-	unsigned num;
-	puts("请输入一个非负整数");
-	scanf_s("%u",&num);
-	printf("二进制表示为\n");
-	print_bits(num);
-
-	int n;
-	printf("\n输入向右移动的位数");
-	scanf_s("%d",&n);
-
-	printf("移动后变为%u\n",rrotate(num,n));
-	print_bits(rrotate(num, n));
-
-	printf("\n输入向左移动的位数");
-	scanf_s("%d", &n);
-	printf("移动后变为%u", lrotate(num, n));
-	print_bits(lrotate(num, n));
-
-	printf("\n输入变位的位数");
-	scanf_s("%d", &n);
-	printf("\n变位为1后为%u", set(num, n));
-	printf("\n变位为0后为%u", reset(num, n));
-	printf("\n变位为反后为%u", inverse(num, n));
-
-	int pos;
-	printf("\n输入开始位");
-	scanf_s("%d",&pos);
-	printf("\n输入变位长度");
-	scanf_s("%d", &n);
-
-	printf("\n变位为1后为%u", set_n(num, pos, n));
-	printf("\n变位为0后为%u", reset_n(num, pos, n));
-	printf("\n变位取反后为%u", inverse_n(num, pos, n));
+	getcharfunc();
 	return(0);
 }
