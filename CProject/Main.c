@@ -113,14 +113,21 @@ void sort3(int *n,int *n2,int *n3)
 	printf("%d\n%d\n%d\n", &s[2], &s[0],&s[2]-&s[0]);
 }
 
+char *str_copy(char *d,const char *s)
+{
+	char *t = d;
+	while (*d++ = *s++)
+		return (t);
+}
+
 int main(void)
 {
-	int y=0, m=0, d=0;
-	printf("输入三个整数\n");
-	scanf_s("%d", &y);
-	scanf_s("%d", &m);
-	scanf_s("%d", &d);
-	sort3(&y, &m, &d);
-	printf("升序结果%d，%d，%d",y,m,d);
+	char s1[128] = "abcd";
+	char s2[128] = "efgh";
+	printf("字符串s1:"); scanf_s("%s",s1);
+	str_copy(s2,s1);
+	puts("s1复制到了s2");
+	printf("s1=%s\n",s1);
+	printf("s2=%s\n", s2);
 	return(0);
 }
