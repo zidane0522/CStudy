@@ -1,110 +1,126 @@
 #include <stdio.h>
 
-enum animal
+int isleapYear(int *y)
 {
-	Dog,
-	Cat,
-	Monkey,
-	Invalid
-};
-
-void DogYell(void)
-{
-	puts("汪汪");
-}
-
-void CatYell(void)
-{
-	puts("喵喵");
-}
-
-void MonkeyYell(void)
-{
-	puts("噢噢");
-}
-
-
-enum animal select(void)
-{
-	int t;
-	do
+	if (*y%400==0)
 	{
-		scanf_s("%d",&t);
-	} while (t>Invalid||t<Dog);
-	return t;
-};
-
-
-//阶乘递归
-int digui_func(int n)
-{
-	if (n == 1)
+		return 1;
+	}
+	else if(*y%100==0)
+	{
+		return 0;
+	}
+	else if (*y%4==0)
 	{
 		return 1;
 	}
 	else
 	{
-		return n*digui_func(n - 1);
+		return 0;
 	}
 }
 
-//阶乘无递归
-int func(int n)
+int getmaxday(int *y, int *m)
 {
-	int temp = 1;
-	for (int i = 1; i <= n; i++)
+	int isleapyear = isleapYear(y);
+	switch (*m)
 	{
-		temp *= i;
+	case 1:
+	case 3:
+	case 5:
+	case 7:
+	case 8:
+	case 10:
+	case 12:
+		return 31;
+	case 2:
+		if (isleapyear)
+		{
+			return 29;
+		}
+		else
+		{
+			return 28;
+		}
+	case 4:
+	case 6:
+	case 9:
+	case 11:
+		return 30;
 	}
-	return temp;
+	return 0;
 }
 
-void getcharfunc(void)
+void lastDay(int *y,int *m,int *d,int maxday)
 {
-	int num[10] = { 0 };
-	int charr;
-	float f;
-	scanf_s("%f", &f);
-	while (1)
+	int ly, lm, ld;
+	if (*d==1)
 	{
-		charr = getchar();
-	
-		if (charr==EOF)
-		{
-			break;
-		}
-		switch (charr)
-		{
-		case '0':num[0]++;
-			break;
-		case '1':num[1]++;
-			break;
-		case '2':num[2]++;
-			break;
-		case '3':num[3]++;
-			break;
-		case '4':num[4]++;
-			break;
-		case '5':num[5]++;
-			break;
-		case '6':num[6]++;
-			break;
+		lm = *m > 1 ? *m - 1 : 12;
+		ly = lm == 12 ? *y - 1 : *y;
+		ld = getmaxday(&ly, &lm);
+	}
+	else
+	{
+		ly = *y;
+		lm = *m;
+		ld = *d-1;
+	}
+	printf("上一天的日期是%d年-%d月-%d日\n",ly,lm,ld);
+	return(0);
+}
 
-		case '7':num[7]++;
-			break;
-		default:
-			break;
+void nextDay(int *y, int *m, int *d,int maxday)
+{
+	int ly, lm, ld;
+	if (*d == maxday)
+	{
+		lm = *m == 12 ? 1 : *m +1;
+		ly = lm == 1 ? *y + 1: *y;
+		ld = 1;
+	}
+	else
+	{
+		ly = *y;
+		lm = *m;
+		ld = *d+1;
+	}
+	printf("下一天的日期是%d年-%d月-%d日\n", ly, lm, ld);
+	return(0);
+}
+
+
+
+void sort3(int *n,int *n2,int *n3)
+{
+	int s[] = { *n,*n2,*n3 };
+	int temp=s[0];
+	for (int j = 2; j >=0; j--)
+	{
+		for (int i = 0; i < j; i++)
+		{
+			if (s[i]>s[i + 1])
+			{
+				temp = s[i];
+				s[i] = s[i + 1];
+				s[i + 1] = temp;
+			}
 		}
 	}
-	puts("数字字符出现的次数");
-	for (int i = 0; i < 10; i++)
-	{
-		printf("'%d':%d\n",i,num[i]);
-	}
+	*n = s[0];
+	*n2 = s[1];
+	*n3 = s[2];
+	printf("%d\n%d\n%d\n", &s[2], &s[0],&s[2]-&s[0]);
 }
 
 int main(void)
 {
-	getcharfunc();
+	int y=0, m=0, d=0;
+	printf("输入三个整数\n");
+	scanf_s("%d", &y);
+	scanf_s("%d", &m);
+	scanf_s("%d", &d);
+	sort3(&y, &m, &d);
+	printf("升序结果%d，%d，%d",y,m,d);
 	return(0);
 }
