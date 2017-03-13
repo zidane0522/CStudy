@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+
 int isleapYear(int *y)
 {
 	if (*y%400==0)
@@ -116,16 +117,17 @@ void sort3(int *n,int *n2,int *n3)
 char *str_copy(char *d,const char *s)
 {
 	char *t = d;
-	while (*d++ = *s++)
-		return (t);
+	while (*t++ = *s++)
+		;
+		return (d);
 }
 
 int main(void)
 {
-	char s1[128] = "abcd";
+	char s1[128];// = "abcd";
 	char s2[128] = "efgh";
-	printf("×Ö·û´®s1:"); scanf_s("%s",s1);
-	str_copy(s2,s1);
+	printf("×Ö·û´®s1:"); scanf_s("%s",&s1[0],128);
+	str_copy(&s2[0],&s1[0]);
 	puts("s1¸´ÖÆµ½ÁËs2");
 	printf("s1=%s\n",s1);
 	printf("s2=%s\n", s2);
