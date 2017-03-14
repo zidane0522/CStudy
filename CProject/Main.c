@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <string.h>
 
 int isleapYear(int *y)
 {
@@ -122,14 +122,67 @@ char *str_copy(char *d,const char *s)
 		return (d);
 }
 
+char *str_chr(const char *str, int c)
+{
+	while (*str)
+	{
+		if (*str==c)
+		{
+			return str;
+		}
+		*str++;
+	}
+	return NULL;
+}
+
+int del_digt(char *str)
+{
+	int d = 0;
+	while (*str)
+	{
+		if (*str>57||*str<48)//非数字
+		{
+			str++;
+		}
+		else
+		{
+			while (*str)
+			{
+				*str = *(str + 1);
+				str++;
+				
+			}
+			d= 1;
+		}
+	}
+	return d;
+}
+
+void newdel_digt(char *str)
+{
+	char *temp = str;
+	while (*temp)
+	{
+		if (*temp>57||*temp<48)
+		{
+			temp++;
+		}
+		else
+		{
+			char *temp1 = temp;
+			while (*temp1)
+			{
+				*temp1 = *(temp1+1);
+				temp1++;
+			}
+		}
+	}
+}
+
 int main(void)
 {
-	char s1[128];// = "abcd";
-	char s2[128] = "efgh";
-	printf("字符串s1:"); scanf_s("%s",&s1[0],128);
-	str_copy(&s2[0],&s1[0]);
-	puts("s1复制到了s2");
-	printf("s1=%s\n",s1);
-	printf("s2=%s\n", s2);
+	char str[] = "a1d2c5e8";
+	newdel_digt(str);
+	printf("%s", str);
 	return(0);
 }
